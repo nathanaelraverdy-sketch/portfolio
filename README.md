@@ -2,32 +2,21 @@
 
 ## Structure
 
-- `index.html` — page publique, liste les projets depuis `data/projects.json`
+- `index.html` — page d'accueil
+- `work.html` / `in-progress.html` — pages listant les projets depuis `data/projects.json`
 - `project.html` — page d'un projet, affiche ton HTML libre (dans une iframe isolée)
-- `admin.html` — interface d'administration : ajouter / modifier / supprimer un projet
+- `admin/` — interface d'administration en ligne (Decap CMS), voir `README-decap.md`
 - `data/projects.json` — la "base de données", un simple fichier JSON
-- `css/style.css`, `js/*.js` — code du site (à ne toucher que si tu veux changer le design)
-- `images/` — mets ici les images de tes projets (facultatif)
+- `css/*.css`, `js/*.js` — code du site (à ne toucher que si tu veux changer le design)
+- `images/` — images et vidéos de tes projets
 
 ## Comment ça marche
 
-Tu n'as jamais besoin de retoucher `index.html` ou `project.html`. Pour ajouter un
-projet :
-
-1. Ouvre `admin.html` dans **Chrome** (ou un navigateur basé sur Chromium : Edge, Brave…).
-2. Clique sur **"Ouvrir data/projects.json"**.
-   - Sur Chrome/Edge, ça ouvre le fichier en mode "édition directe" : quand tu cliques
-     sur "Enregistrer les modifications", le fichier sur ton disque est mis à jour
-     directement, sans rien télécharger.
-   - Sur un autre navigateur, le fichier est chargé en mémoire, et à la fin tu cliques
-     sur "Enregistrer les modifications" pour **télécharger** le nouveau fichier, que tu
-     remplaces ensuite manuellement dans le dossier `data/`.
-3. Remplis le formulaire : titre, tags, date, résumé, et surtout le champ
-   **"Contenu HTML complet"** — c'est là que tu colles ton propre code HTML/CSS/JS pour
-   la page du projet. Il sera affiché tel quel (dans une iframe isolée, donc ton code
-   ne peut jamais casser le reste du site, ni inversement).
-4. Clique sur "Ajouter le projet", puis sur "Enregistrer les modifications".
-5. Ouvre/rafraîchis `index.html` : le projet apparaît automatiquement.
+Tu n'as jamais besoin de retoucher `index.html`, `work.html`, `in-progress.html` ou
+`project.html`. Pour ajouter ou modifier un projet, utilise l'interface d'administration
+en ligne à `https://<ton-site>.netlify.app/admin/` (voir `README-decap.md` pour la mise
+en place complète). Chaque modification y crée directement un commit sur ton dépôt
+GitHub, qui redéploie automatiquement le site.
 
 Aucune ligne de code à écrire dans le site lui-même, à chaque nouveau projet — juste
 un formulaire, et du HTML dans une case si tu veux du sur-mesure.
@@ -45,23 +34,8 @@ python3 -m http.server 8000
 # puis ouvre http://localhost:8000
 ```
 
-## Mettre en ligne sans serveur
+## Mise en ligne
 
-Le site est 100% statique (juste des fichiers HTML/CSS/JS/JSON), donc tu peux
-l'héberger gratuitement sur n'importe quel hébergeur de fichiers statiques :
-
-- **GitHub Pages** : pousse ce dossier dans un dépôt GitHub, active "Pages" dans les
-  réglages du dépôt → ton site est en ligne à `https://<toi>.github.io/<repo>/`.
-- **Netlify** ou **Vercel** : glisse-dépose le dossier sur leur interface, ou connecte
-  ton dépôt GitHub — déploiement automatique à chaque `git push`.
-- **Cloudflare Pages** : même principe.
-
-Dans tous les cas : pas de base de données, pas de backend à héberger ou payer,
-juste des fichiers statiques.
-
-⚠️ Une fois en ligne, `admin.html` reste accessible à qui a l'URL. Si tu ne veux pas
-que d'autres personnes puissent y accéder (même s'ils ne peuvent modifier que le
-fichier téléchargé, pas ton site en ligne, sauf via le mode "édition directe" en
-local), le plus simple est de ne pas déployer `admin.html` en ligne : garde-le en
-local sur ta machine, édite `data/projects.json` chez toi, et ne pousse/déploie que
-les fichiers mis à jour.
+Le site est hébergé sur Netlify, connecté à ton dépôt GitHub : chaque `git push`
+redéploie automatiquement le site. Voir `README-decap.md` pour la configuration de
+l'admin en ligne (Decap CMS + Netlify Identity + Git Gateway).
