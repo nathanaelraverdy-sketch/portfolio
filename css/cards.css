@@ -178,7 +178,8 @@ body[class*="page-"] a { color: inherit; text-decoration: none; }
   justify-content: center;
   padding: 0; /* l'image va jusqu'aux bords — le border-radius + overflow:hidden de la carte la clippe déjà */
 }
-.project-card .card-media img {
+.project-card .card-media img,
+.project-card .card-media video {
   width: 100%;
   height: 100%;
   object-fit: cover;

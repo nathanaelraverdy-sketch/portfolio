@@ -25,6 +25,8 @@ const dropText = document.getElementById('dropText');
 const dropHint = document.getElementById('dropHint');
 const imageFileInput = document.getElementById('f_image_file');
 const imageField = document.getElementById('f_image');
+const videoField = document.getElementById('f_video');
+const dropPreviewVideo = document.getElementById('dropPreviewVideo');
 let imagesDirHandle = null;
 
 // ---- Persistance des handles (File System Access API) via IndexedDB,
@@ -80,7 +82,7 @@ colorText.addEventListener('input', () => {
 pickImagesFolderBtn.addEventListener('click', pickImagesFolder);
 dropzone.addEventListener('click', () => imageFileInput.click());
 imageFileInput.addEventListener('change', e => {
-  if (e.target.files[0]) handleImageFile(e.target.files[0]);
+  if (e.target.files[0]) handleMediaFile(e.target.files[0]);
 });
 ['dragenter', 'dragover'].forEach(evt =>
   dropzone.addEventListener(evt, e => {
@@ -96,9 +98,10 @@ imageFileInput.addEventListener('change', e => {
 );
 dropzone.addEventListener('drop', e => {
   const file = e.dataTransfer.files[0];
-  if (file) handleImageFile(file);
+  if (file) handleMediaFile(file);
 });
-imageField.addEventListener('input', () => updateImagePreview(imageField.value));
+imageField.addEventListener('input', () => { if (!videoField.value) updateMediaPreview(imageField.value, false); });
+videoField.addEventListener('input', () => updateMediaPreview(videoField.value, !!videoField.value));
 
 
 updatePhaseVisibility();
@@ -324,7 +327,8 @@ function startEdit(id) {
   document.getElementById('f_text_color').value = p.textColor || '#ffffff';
   document.getElementById('f_categories').value = (p.categories || []).join(', ');
   document.getElementById('f_image').value = p.image || '';
-  updateImagePreview(p.image || '');
+  document.getElementById('f_video').value = p.video || '';
+  updateMediaPreview(p.video || p.image || '', !!p.video);
   document.getElementById('f_version').value = p.version || '';
   document.getElementById('f_cta_label').value = (p.cta && p.cta.label) || '';
   document.getElementById('f_cta_url').value = (p.cta && p.cta.url) || '';
@@ -370,7 +374,7 @@ function resetForm() {
   submitBtn.textContent = 'Ajouter le projet';
   cancelEditBtn.style.display = 'none';
   updatePhaseVisibility();
-  updateImagePreview('');
+  updateMediaPreview('', false);
 }
 
 function onSubmit(e) {
@@ -390,6 +394,7 @@ function onSubmit(e) {
     textColor: document.getElementById('f_text_color').value,
     categories: document.getElementById('f_categories').value.split(',').map(s => s.trim()).filter(Boolean),
     image: document.getElementById('f_image').value.trim(),
+    video: document.getElementById('f_video').value.trim(),
     version: document.getElementById('f_version').value.trim(),
     cta: {
       label: document.getElementById('f_cta_label').value.trim(),
@@ -467,11 +472,15 @@ function sanitizeFileName(name) {
   return (base || 'image') + ext;
 }
 
-async function handleImageFile(file) {
-  if (!file.type.startsWith('image/')) {
-    setStatus('Le fichier déposé n\'est pas une image.', 'err');
+async function handleMediaFile(file) {
+  const isVideo = file.type.startsWith('video/');
+  const isImage = file.type.startsWith('image/');
+  if (!isVideo && !isImage) {
+    setStatus('Le fichier déposé n\'est ni une image ni une vidéo.', 'err');
     return;
   }
+  const targetField = isVideo ? videoField : imageField;
+  const otherField = isVideo ? imageField : videoField;
 
   if (imagesDirHandle) {
     try {
@@ -481,33 +490,46 @@ async function handleImageFile(file) {
       await writable.write(file);
       await writable.close();
       const relPath = 'images/' + fileName;
-      imageField.value = relPath;
-      updateImagePreview(relPath);
-      setStatus('Image enregistrée dans ' + relPath + '.', 'ok');
+      targetField.value = relPath;
+      otherField.value = '';
+      updateMediaPreview(relPath, isVideo);
+      setStatus((isVideo ? 'Vidéo' : 'Image') + ' enregistrée dans ' + relPath + '.', 'ok');
       return;
     } catch (err) {
-      setStatus('Échec de l\'écriture du fichier image : ' + err.message + ' — utilisation d\'un aperçu intégré à la place.', 'err');
+      setStatus('Échec de l\'écriture du fichier : ' + err.message + ' — utilisation d\'un aperçu intégré à la place.', 'err');
     }
   }
 
-  // Fallback (pas d'accès dossier) : on encode l'image directement dans le JSON.
+  // Fallback (pas d'accès dossier) : on encode le fichier directement dans le JSON.
   const reader = new FileReader();
   reader.onload = () => {
-    imageField.value = reader.result;
-    updateImagePreview(reader.result);
-    setStatus('Image intégrée directement dans data/projects.json (pense à choisir le dossier images/ pour éviter d\'alourdir le fichier).', 'ok');
+    targetField.value = reader.result;
+    otherField.value = '';
+    updateMediaPreview(reader.result, isVideo);
+    setStatus((isVideo ? 'Vidéo' : 'Image') + ' intégrée directement dans data/projects.json (pense à choisir le dossier images/ pour éviter d\'alourdir le fichier — attention, les vidéos en base64 peuvent être très lourdes).', 'ok');
   };
   reader.readAsDataURL(file);
 }
 
-function updateImagePreview(src) {
+function updateMediaPreview(src, isVideo) {
   if (src) {
-    dropPreview.src = src;
-    dropPreview.style.display = 'block';
+    if (isVideo) {
+      dropPreviewVideo.src = src;
+      dropPreviewVideo.style.display = 'block';
+      dropPreview.style.display = 'none';
+      dropPreview.removeAttribute('src');
+    } else {
+      dropPreview.src = src;
+      dropPreview.style.display = 'block';
+      dropPreviewVideo.style.display = 'none';
+      dropPreviewVideo.removeAttribute('src');
+    }
     dropText.style.display = 'none';
   } else {
     dropPreview.removeAttribute('src');
     dropPreview.style.display = 'none';
+    dropPreviewVideo.removeAttribute('src');
+    dropPreviewVideo.style.display = 'none';
     dropText.style.display = 'block';
   }
 }

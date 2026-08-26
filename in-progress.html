@@ -44,6 +44,7 @@
   }
 
   listEl.innerHTML = inProgress.map(p => `<div class="inprogress-item">${renderCard(p)}${renderPhaseCard(p)}</div>`).join('');
+  wireVideoHover();
   if (window.updateCardFocus) window.updateCardFocus();
 })();
 </script>

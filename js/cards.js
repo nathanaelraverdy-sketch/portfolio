@@ -28,6 +28,9 @@ function renderBadges(project) {
 }
 
 function renderMedia(project) {
+  if (project.video) {
+    return `<video src="${escapeHtml(project.video)}" muted loop playsinline preload="metadata"></video>`;
+  }
   if (project.image) {
     return `<img src="${escapeHtml(project.image)}" alt="${escapeHtml(project.title)}">`;
   }
@@ -97,4 +100,14 @@ function renderPhaseCard(project) {
       <div class="phase-timeline">${steps}</div>
     </div>
   `;
+}
+
+function wireVideoHover(root) {
+  (root || document).querySelectorAll('.project-card').forEach(card => {
+    const video = card.querySelector('.card-media video');
+    if (!video || video.dataset.hoverWired) return;
+    video.dataset.hoverWired = '1';
+    card.addEventListener('mouseenter', () => video.play().catch(() => {}));
+    card.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+  });
 }

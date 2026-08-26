@@ -83,7 +83,7 @@
     transition: border-color 0.15s, background 0.15s;
   }
   .dropzone.drag-over { border-color: var(--accent); background: rgba(108,140,255,0.08); }
-  .dropzone img { max-width: 100%; max-height: 140px; border-radius: 8px; display: block; margin: 0 auto 8px; }
+  .dropzone img, .dropzone video { max-width: 100%; max-height: 140px; border-radius: 8px; display: block; margin: 0 auto 8px; }
   .step-row {
     display: flex;
     gap: 8px;
@@ -178,14 +178,16 @@
       </div>
       <div class="row">
         <div class="field">
-          <label>Image</label>
+          <label>Image ou vidéo</label>
           <div id="dropzone" class="dropzone">
             <img id="dropPreview" style="display:none;">
-            <span id="dropText">Glisse une image ici, ou clique pour la choisir</span>
+            <video id="dropPreviewVideo" style="display:none;" muted loop autoplay playsinline></video>
+            <span id="dropText">Glisse une image ou une vidéo ici, ou clique pour la choisir</span>
           </div>
-          <input type="file" id="f_image_file" accept="image/*" style="display:none;">
-          <input type="text" id="f_image" placeholder="images/mon-projet.png">
-          <p class="hint" id="dropHint"></p>
+          <input type="file" id="f_image_file" accept="image/*,video/*" style="display:none;">
+          <input type="text" id="f_image" placeholder="images/mon-projet.png (image)">
+          <input type="text" id="f_video" placeholder="images/mon-projet.mp4 (vidéo)">
+          <p class="hint" id="dropHint">Si une vidéo est renseignée, elle est utilisée en priorité sur l'image.</p>
         </div>
         <div class="field">
           <label>Version (optionnel — affichée en badge)</label>
