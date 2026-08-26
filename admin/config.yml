@@ -1,0 +1,91 @@
+backend:
+  name: git-gateway
+  branch: master
+
+media_folder: "images"
+public_folder: "images"
+
+collections:
+  - name: "portfolio"
+    label: "Portfolio"
+    files:
+      - name: "projects"
+        label: "Projets"
+        file: "data/projects.json"
+        fields:
+          - name: "projects"
+            label: "Projets"
+            widget: "list"
+            summary: "{{title}} — {{status}}"
+            fields:
+              - { name: "id", label: "Identifiant (URL, sans espaces)", widget: "string" }
+              - { name: "title", label: "Titre", widget: "string" }
+              - name: "status"
+                label: "Statut"
+                widget: "select"
+                options:
+                  - { label: "In progress", value: "in-progress" }
+                  - { label: "Finished", value: "finished" }
+              - { name: "date", label: "Date", widget: "date", format: "YYYY-MM-DD", required: false }
+              - { name: "color", label: "Couleur de la carte (hex, ex: #1c3f6e)", widget: "string", default: "#1c3f6e" }
+              - name: "textColor"
+                label: "Couleur du texte"
+                widget: "select"
+                options:
+                  - { label: "Blanc", value: "#ffffff" }
+                  - { label: "Noir", value: "#000000" }
+                default: "#ffffff"
+              - name: "categories"
+                label: "Catégories"
+                widget: "list"
+                required: false
+                field: { name: "category", label: "Catégorie", widget: "string" }
+              - { name: "image", label: "Image", widget: "image", required: false, choose_url: false }
+              - { name: "video", label: "Vidéo", widget: "file", required: false }
+              - { name: "version", label: "Version (optionnel)", widget: "string", required: false }
+              - name: "cta"
+                label: "Bouton (redirige vers un lien)"
+                widget: "object"
+                required: false
+                fields:
+                  - { name: "label", label: "Texte (ex: Try it / Web it)", widget: "string", required: false }
+                  - { name: "url", label: "Lien externe", widget: "string", required: false }
+              - name: "badges"
+                label: "Badges additionnels (ex: No AI)"
+                widget: "list"
+                required: false
+                field: { name: "badge", label: "Badge", widget: "string" }
+              - name: "description"
+                label: "Description (un item = un paragraphe)"
+                widget: "list"
+                required: false
+                field: { name: "paragraph", label: "Paragraphe", widget: "text" }
+              - name: "contentHtml"
+                label: "Contenu HTML détaillé (page projet dédiée, optionnel)"
+                widget: "text"
+                required: false
+              - name: "phase"
+                label: "Phases de développement (utilisé seulement si statut = In progress)"
+                widget: "object"
+                required: false
+                collapsed: true
+                fields:
+                  - { name: "title", label: "Titre de la carte", widget: "string", default: "Developpement phases" }
+                  - { name: "explanationTitle", label: "Titre colonne Explanations", widget: "string", default: "Explanations" }
+                  - { name: "explanation", label: "Texte Explanations", widget: "text", required: false }
+                  - { name: "newsTitle", label: "Titre colonne News", widget: "string", default: "News" }
+                  - { name: "news", label: "Texte News", widget: "text", required: false }
+                  - name: "steps"
+                    label: "Étapes de la timeline"
+                    widget: "list"
+                    required: false
+                    fields:
+                      - { name: "label", label: "Nom de l'étape", widget: "string" }
+                      - name: "status"
+                        label: "Statut"
+                        widget: "select"
+                        options:
+                          - { label: "Terminée", value: "finished" }
+                          - { label: "Active", value: "current" }
+                          - { label: "À venir", value: "upcoming" }
+                      - { name: "note", label: "Note (optionnel)", widget: "string", required: false }

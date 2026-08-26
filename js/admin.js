@@ -32,6 +32,11 @@ let imagesDirHandle = null;
 // ---- Persistance des handles (File System Access API) via IndexedDB,
 // pour rouvrir automatiquement le fichier/dossier au prochain chargement
 // de la page, sans repasser par le sélecteur à chaque fois. ----
+function parseProjectsFile(text) {
+  const data = JSON.parse(text || '{"projects":[]}');
+  return Array.isArray(data) ? data : (data.projects || []);
+}
+
 function idbOpen() {
   return new Promise((resolve, reject) => {
     const req = indexedDB.open('portfolio-admin', 1);
@@ -131,7 +136,7 @@ async function loadFromHandle(handle) {
   fileHandle = handle;
   const file = await handle.getFile();
   const text = await file.text();
-  projects = JSON.parse(text || '[]');
+  projects = parseProjectsFile(text);
   saveBtn.disabled = false;
   renderList();
   setStatus('Fichier chargé automatiquement (' + file.name + ').', 'ok');
@@ -163,7 +168,7 @@ function onFileInputChange(e) {
   const reader = new FileReader();
   reader.onload = () => {
     try {
-      projects = JSON.parse(reader.result || '[]');
+      projects = parseProjectsFile(reader.result);
       saveBtn.disabled = false;
       renderList();
       setStatus('Fichier chargé en mémoire. Pense à télécharger après tes modifications.', 'ok');
@@ -175,7 +180,7 @@ function onFileInputChange(e) {
 }
 
 async function saveFile() {
-  const text = JSON.stringify(projects, null, 2);
+  const text = JSON.stringify({ projects }, null, 2);
   // markDirty() sera annulé si l'enregistrement réussit, voir plus bas.
   if (useFsApi && fileHandle) {
     try {

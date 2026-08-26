@@ -3,7 +3,10 @@
 
 async function fetchProjects() {
   const res = await fetch('data/projects.json', { cache: 'no-store' });
-  return res.json();
+  const data = await res.json();
+  // Le fichier est maintenant { "projects": [...] } (format compatible Decap CMS),
+  // avec un repli si jamais un ancien fichier "tableau brut" traîne encore.
+  return Array.isArray(data) ? data : (data.projects || []);
 }
 
 function inverseTextColor(textColor) {
