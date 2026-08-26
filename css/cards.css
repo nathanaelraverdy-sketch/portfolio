@@ -95,7 +95,7 @@ body[class*="page-"] a { color: inherit; text-decoration: none; }
   transform-origin: center;
   will-change: transform;
   border-radius: var(--radius-card);
-  corner-shape: squircle; /* angles "smoothés" façon Figma (corner smoothing 100%) — dégrade en angles ronds classiques si non supporté */
+  corner-shape: superellipse(7); /* corner smoothing renforcé façon Figma — dégrade en angles ronds classiques si non supporté */
   color: var(--card-text);
   display: flex;
   align-items: stretch;
