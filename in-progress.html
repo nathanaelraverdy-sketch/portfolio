@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In progress — Nathanael Raverdy</title>
+<link rel="stylesheet" href="css/cards.css">
+</head>
+<body class="page-inprogress">
+
+<div class="page-wrap">
+  <nav class="pill-nav">
+    <div class="pill-nav-left">
+      <a href="index.html"><img src="images/logo-nr.png" alt="NR"></a>
+      <a href="in-progress.html">In progress</a>
+      <a href="work.html">Work</a>
+      <a href="#services">Services</a>
+    </div>
+    <div class="pill-nav-right">
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <h1 class="page-title">In progress</h1>
+  <p class="page-subtitle">The projects that you're currently seeing are</p>
+
+  <div id="list"></div>
+</div>
+
+<script src="js/cards.js"></script>
+<script>
+(async function () {
+  const listEl = document.getElementById('list');
+  const projects = await fetchProjects();
+  const inProgress = projects
+    .filter(p => p.status === 'in-progress')
+    .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+  if (inProgress.length === 0) {
+    listEl.innerHTML = '<div class="empty-state">Aucun projet en cours pour le moment.</div>';
+    return;
+  }
+
+  listEl.innerHTML = inProgress.map(p => renderCard(p) + renderPhaseCard(p)).join('');
+})();
+</script>
+</body>
+</html>

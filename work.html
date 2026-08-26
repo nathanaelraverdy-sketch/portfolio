@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Work — Nathanael Raverdy</title>
+<link rel="stylesheet" href="css/cards.css">
+</head>
+<body class="page-work">
+
+<div class="page-wrap">
+  <nav class="pill-nav">
+    <div class="pill-nav-left">
+      <a href="index.html"><img src="images/logo-nr.png" alt="NR"></a>
+      <a href="in-progress.html">In progress</a>
+      <a href="work.html">Work</a>
+      <a href="#services">Services</a>
+    </div>
+    <div class="pill-nav-right">
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <h1 class="page-title">Featured Work</h1>
+  <p class="page-subtitle">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Qui officia deserunt mollit anim id est laborum.</p>
+
+  <div id="featured"></div>
+
+  <h2 class="section-title">More Work</h2>
+  <p class="section-subtitle">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+  <div id="more"></div>
+</div>
+
+<script src="js/cards.js"></script>
+<script>
+(async function () {
+  const featuredEl = document.getElementById('featured');
+  const moreEl = document.getElementById('more');
+  const projects = await fetchProjects();
+  const finished = projects
+    .filter(p => p.status === 'finished')
+    .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+  if (finished.length === 0) {
+    featuredEl.innerHTML = '<div class="empty-state">Aucun projet terminé pour le moment.</div>';
+    return;
+  }
+
+  const [big, ...rest] = finished;
+  const pair = rest.slice(0, 2);
+  const more = rest.slice(2);
+
+  let featuredHtml = renderCard(big);
+  if (pair.length) {
+    featuredHtml += `<div class="card-grid-2">${pair.map(renderCard).join('')}</div>`;
+  }
+  featuredEl.innerHTML = featuredHtml;
+
+  moreEl.innerHTML = more.length
+    ? more.map(renderCard).join('')
+    : '<div class="empty-state">Rien d\'autre pour l\'instant — les prochains projets terminés arriveront ici.</div>';
+})();
+</script>
+</body>
+</html>

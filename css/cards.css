@@ -1,0 +1,300 @@
+/* ===== Pages "In progress" / "Work" — nav pill, cards colorées, neomorphisme ===== */
+
+:root {
+  --ink: #000000;
+  --nav-accent: #d7df53;
+  --radius-card: 40px;
+  --radius-pill: 999px;
+}
+
+body.page-inprogress { --page-bg: #efe6d6; }
+body.page-work { --page-bg: #f1e6f0; }
+
+body[class*="page-"] {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--ink);
+  font-family: "Nohemi", -apple-system, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+}
+
+body[class*="page-"] a { color: inherit; text-decoration: none; }
+
+.page-wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 32px 90px;
+}
+
+/* ---- nav pill ---- */
+.pill-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 34px;
+}
+
+.pill-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border-radius: var(--radius-pill);
+  padding: 8px 20px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.pill-nav-left img { height: 18px; width: auto; display: block; }
+.pill-nav-left a:hover { opacity: 0.6; }
+
+.pill-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--nav-accent);
+  border-radius: var(--radius-pill);
+  padding: 8px 20px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.pill-nav-right a:hover { opacity: 0.6; }
+
+/* ---- headings ---- */
+.page-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 700;
+  margin: 0 0 6px;
+  line-height: 1;
+}
+.page-subtitle {
+  margin: 0 0 40px;
+  font-weight: 400;
+  font-size: 1rem;
+  max-width: 640px;
+  color: var(--ink);
+}
+
+.section-title {
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  font-weight: 700;
+  margin: 56px 0 6px;
+}
+.section-subtitle {
+  margin: 0 0 28px;
+  font-size: 0.95rem;
+  max-width: 620px;
+}
+
+/* ---- carte projet (couleur + drop shadow + neomorphisme) ---- */
+.project-card {
+  --card-color: #1c3f6e;
+  --card-text: #ffffff;
+  background: var(--card-color);
+  border-radius: var(--radius-card);
+  corner-shape: squircle; /* angles "smoothés" façon Figma (corner smoothing 100%) — dégrade en angles ronds classiques si non supporté */
+  color: var(--card-text);
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  margin-bottom: 28px;
+  box-shadow:
+    0 0 34px 4px color-mix(in srgb, var(--card-color) 30%, transparent),  /* drop shadow externe, tout autour de la carte */
+    inset 10px 10px 22.5px rgba(255, 255, 255, 0.22),  /* neomorphisme — clair */
+    inset -10px -10px 27px rgba(0, 0, 0, 0.32);      /* neomorphisme — sombre */
+}
+
+.project-card .card-text {
+  flex: 1 1 50%;
+  min-width: 0;
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: var(--card-text);
+}
+
+.project-card h3 {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.project-card .card-categories {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.project-card .card-desc p {
+  margin: 0 0 12px;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  opacity: 0.92;
+}
+.project-card .card-desc p:last-child { margin-bottom: 0; }
+
+.card-badges {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 6px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-pill);
+  padding: 6px 16px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  background: transparent;
+  color: inherit;
+  border: 1.5px solid currentColor;
+}
+
+/* badge d'action (redirige vers un lien) — rempli, pour bien le distinguer des badges informatifs.
+   Sélecteur renforcé (.project-card/.phase-card .badge-cta) pour battre la règle
+   générale "body[class*='page-'] a { color: inherit }" en spécificité CSS. */
+.project-card .badge-cta,
+.phase-card .badge-cta {
+  background: var(--card-text, #ffffff);
+  color: var(--card-text-inverse, #000000);
+  border-color: transparent;
+}
+.project-card .badge-cta:hover,
+.phase-card .badge-cta:hover { opacity: 0.85; }
+
+.project-card .card-media {
+  flex: 1 1 50%;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* l'image va jusqu'aux bords — le border-radius + overflow:hidden de la carte la clippe déjà */
+}
+.project-card .card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  display: block;
+}
+.project-card .card-media .placeholder {
+  color: #9aa0a8;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* variante compacte (2 par ligne dans Featured Work) */
+.card-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+.card-grid-2 .project-card { margin-bottom: 0; flex-direction: column; }
+.card-grid-2 .project-card .card-media { min-height: 160px; }
+.card-grid-2 .project-card .card-text { padding: 24px 26px; }
+
+/* ---- carte "phases de développement" ---- */
+.phase-card {
+  background: var(--card-color, #1c3f6e);
+  color: var(--card-text, #ffffff);
+  border-radius: var(--radius-card);
+  corner-shape: squircle;
+  padding: 32px 36px;
+  margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 32px;
+  box-shadow:
+    0 0 34px 4px color-mix(in srgb, var(--card-color) 30%, transparent),
+    inset 10px 10px 22.5px rgba(255, 255, 255, 0.22),
+    inset -10px -10px 27px rgba(0, 0, 0, 0.32);
+}
+.phase-card h4 {
+  margin: 0 0 10px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  grid-column: 1 / -1;
+}
+.phase-card .phase-col h5 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.phase-card .phase-col p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  opacity: 0.9;
+}
+
+.phase-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  position: relative;
+  padding-left: 20px;
+  min-width: 150px;
+}
+.phase-timeline::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: color-mix(in srgb, currentColor 35%, transparent);
+}
+.phase-step {
+  position: relative;
+  font-size: 0.88rem;
+  font-weight: 500;
+  opacity: 0.55;
+}
+.phase-step::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: color-mix(in srgb, currentColor 50%, transparent);
+}
+.phase-step.is-finished,
+.phase-step.is-current {
+  opacity: 1;
+  font-weight: 700;
+}
+.phase-step.is-finished::before,
+.phase-step.is-current::before {
+  background: currentColor;
+}
+.phase-step .step-note {
+  display: inline-block;
+  margin-top: 4px;
+  background: transparent;
+  border: 1.5px solid currentColor;
+  border-radius: var(--radius-pill);
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.empty-state {
+  padding: 60px 0;
+  opacity: 0.6;
+}
+
+@media (max-width: 860px) {
+  .project-card { flex-direction: column; }
+  .card-grid-2 { grid-template-columns: 1fr; }
+  .phase-card { grid-template-columns: 1fr; }
+  .pill-nav { flex-direction: column; align-items: flex-start; }
+}
