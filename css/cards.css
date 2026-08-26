@@ -95,7 +95,6 @@ body[class*="page-"] a { color: inherit; text-decoration: none; }
   transform-origin: center;
   will-change: transform;
   border-radius: var(--radius-card);
-  corner-shape: superellipse(4.3); /* corner smoothing renforcé façon Figma — dégrade en angles ronds classiques si non supporté */
   color: var(--card-text);
   display: flex;
   align-items: stretch;
@@ -208,7 +207,6 @@ body[class*="page-"] a { color: inherit; text-decoration: none; }
   background: var(--card-color, #1c3f6e);
   color: var(--card-text, #ffffff);
   border-radius: var(--radius-card);
-  corner-shape: superellipse(4.3);
   transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
   transform-origin: center;
   will-change: transform;
