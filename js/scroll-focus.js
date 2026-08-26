@@ -5,7 +5,7 @@
 
   function updateFocus() {
     ticking = false;
-    const cards = document.querySelectorAll('.project-card');
+    const cards = document.querySelectorAll('.inprogress-item');
     if (!cards.length) return;
 
     const viewportCenter = window.innerHeight / 2;

@@ -43,7 +43,7 @@
     return;
   }
 
-  listEl.innerHTML = inProgress.map(p => renderCard(p) + renderPhaseCard(p)).join('');
+  listEl.innerHTML = inProgress.map(p => `<div class="inprogress-item">${renderCard(p)}${renderPhaseCard(p)}</div>`).join('');
   if (window.updateCardFocus) window.updateCardFocus();
 })();
 </script>
