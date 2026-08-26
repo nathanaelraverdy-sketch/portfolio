@@ -91,6 +91,9 @@ body[class*="page-"] a { color: inherit; text-decoration: none; }
   --card-color: #1c3f6e;
   --card-text: #ffffff;
   background: var(--card-color);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center;
+  will-change: transform;
   border-radius: var(--radius-card);
   corner-shape: squircle; /* angles "smoothés" façon Figma (corner smoothing 100%) — dégrade en angles ronds classiques si non supporté */
   color: var(--card-text);
@@ -298,3 +301,15 @@ body[class*="page-"] a { color: inherit; text-decoration: none; }
   .phase-card { grid-template-columns: 1fr; }
   .pill-nav { flex-direction: column; align-items: flex-start; }
 }
+
+/* ===== Page "Work" : au survol d'une carte, elle grandit et les autres
+   rétrécissent légèrement. Groupé via .cards-hover-group (voir work.html). ===== */
+.cards-hover-group:hover .project-card { transform: scale(0.96); }
+.cards-hover-group .project-card:hover {
+  transform: scale(1.035);
+  z-index: 4;
+}
+
+/* ===== Page "In progress" : au scroll, la carte proche du centre de l'écran
+   grandit, les autres restent à taille normale (voir js/scroll-focus.js). ===== */
+.page-inprogress .project-card.in-focus { transform: scale(1.035); z-index: 4; }

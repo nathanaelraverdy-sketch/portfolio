@@ -29,6 +29,7 @@
 </div>
 
 <script src="js/cards.js"></script>
+<script src="js/scroll-focus.js"></script>
 <script>
 (async function () {
   const listEl = document.getElementById('list');
@@ -43,6 +44,7 @@
   }
 
   listEl.innerHTML = inProgress.map(p => renderCard(p) + renderPhaseCard(p)).join('');
+  if (window.updateCardFocus) window.updateCardFocus();
 })();
 </script>
 </body>

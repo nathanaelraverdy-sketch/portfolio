@@ -26,25 +26,47 @@
   {
     "id": "nathanael-website",
     "title": "My own website",
-    "status": "finished",
+    "status": "in-progress",
+    "date": "2026-08-23",
     "color": "#d7df53",
+    "textColor": "#000000",
     "categories": [
       "Website"
     ],
-    "description": [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    ],
+    "image": "",
     "version": "",
     "cta": {
       "label": "Git it",
       "url": ""
     },
-    "image": "",
-    "date": "2026-08-23",
     "badges": [],
-    "phase": null,
+    "description": [
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    ],
     "contentHtml": "",
-    "textColor": "#000000"
+    "phase": {
+      "title": "Developpement phases",
+      "explanationTitle": "Explanations",
+      "explanation": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "newsTitle": "News",
+      "news": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "steps": [
+        {
+          "label": "Design",
+          "status": "finished",
+          "note": "Finished"
+        },
+        {
+          "label": "Developpement",
+          "status": "current",
+          "note": "Work in progress"
+        },
+        {
+          "label": "Beta testing",
+          "status": "upcoming"
+        }
+      ]
+    }
   },
   {
     "id": "shakeshack",
