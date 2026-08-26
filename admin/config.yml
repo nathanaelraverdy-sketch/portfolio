@@ -2,6 +2,9 @@ backend:
   name: git-gateway
   branch: master
 
+logo_url: "images/logo-nr.png"
+site_url: "https://nathanaelraverdy.netlify.app"
+
 media_folder: "images"
 public_folder: "images"
 

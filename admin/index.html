@@ -3,12 +3,100 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Administration en ligne — Portfolio</title>
+<title>Administration — Portfolio</title>
+<style>
+  /* Petites retouches de marque sur l'interface Decap (best-effort, ne casse rien si les
+     classes changent dans une future version de Decap CMS). */
+  :root { --nc-brand: #d7df53; }
+  a, button { }
+</style>
 </head>
 <body>
 <!-- Decap CMS : lit ce dossier (config.yml) et se connecte à GitHub via
      Netlify Identity + Git Gateway. Fonctionne depuis n'importe quel
      navigateur, une fois le compte GitHub autorisé (voir README-decap.md). -->
 <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+<script>
+  // Aperçu personnalisé : affiche chaque projet comme une vraie carte colorée
+  // (couleur, titre, statut, catégories, description) au lieu de la liste brute
+  // de champs générée par défaut par Decap CMS.
+  var ProjectsPreview = createClass({
+    render: function () {
+      var entry = this.props.entry;
+      var raw = entry.getIn(['data', 'projects']);
+      var projects = raw ? raw.toJS() : [];
+
+      if (!projects.length) {
+        return h('div', { style: { fontFamily: 'system-ui, sans-serif', padding: '24px', color: '#666' } }, 'Aucun projet.');
+      }
+
+      return h('div', {
+        style: {
+          fontFamily: 'system-ui, -apple-system, sans-serif',
+          background: '#0d0f14',
+          minHeight: '100%',
+          padding: '24px'
+        }
+      }, projects.map(function (p, i) {
+        var color = p.color || '#1c3f6e';
+        var textColor = p.textColor || '#ffffff';
+        var statusLabel = p.status === 'finished' ? 'Terminé' : 'En cours';
+
+        return h('div', {
+          key: p.id || i,
+          style: {
+            background: color,
+            color: textColor,
+            borderRadius: '28px',
+            padding: '26px 28px',
+            marginBottom: '18px',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.35)'
+          }
+        },
+          h('div', {
+            style: {
+              display: 'inline-block',
+              fontSize: '11px',
+              fontWeight: '600',
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              opacity: 0.85,
+              border: '1.5px solid currentColor',
+              borderRadius: '999px',
+              padding: '3px 10px',
+              marginBottom: '10px'
+            }
+          }, statusLabel),
+          h('h2', { style: { margin: '4px 0 6px', fontSize: '24px', fontWeight: '700' } }, p.title || p.id || 'Sans titre'),
+          (p.categories && p.categories.length)
+            ? h('div', { style: { fontSize: '13px', opacity: 0.85, marginBottom: '10px' } }, p.categories.join(' · '))
+            : null,
+          (p.description && p.description.length)
+            ? h('p', { style: { fontSize: '14px', lineHeight: 1.5, margin: 0, opacity: 0.92, maxWidth: '640px' } }, p.description[0])
+            : null,
+          (p.badges && p.badges.length)
+            ? h('div', { style: { marginTop: '14px' } }, p.badges.map(function (b, bi) {
+                return h('span', {
+                  key: bi,
+                  style: {
+                    display: 'inline-block',
+                    fontSize: '12px',
+                    border: '1.5px solid currentColor',
+                    borderRadius: '999px',
+                    padding: '3px 10px',
+                    marginRight: '6px',
+                    opacity: 0.85
+                  }
+                }, b);
+              }))
+            : null
+        );
+      }));
+    }
+  });
+
+  CMS.registerPreviewTemplate('projects', ProjectsPreview);
+</script>
 </body>
 </html>
