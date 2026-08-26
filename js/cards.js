@@ -31,6 +31,12 @@ function renderBadges(project) {
 }
 
 function renderMedia(project) {
+  if (project.video && project.image) {
+    // Les deux sont présents : l'image reste affichée par défaut, la vidéo
+    // vient se superposer et se joue seulement au survol (voir wireVideoHover).
+    return `<img class="media-image" src="${escapeHtml(project.image)}" alt="${escapeHtml(project.title)}">` +
+           `<video class="media-video" src="${escapeHtml(project.video)}" muted loop playsinline preload="metadata"></video>`;
+  }
   if (project.video) {
     return `<video src="${escapeHtml(project.video)}" muted loop playsinline preload="metadata"></video>`;
   }
@@ -110,7 +116,15 @@ function wireVideoHover(root) {
     const video = card.querySelector('.card-media video');
     if (!video || video.dataset.hoverWired) return;
     video.dataset.hoverWired = '1';
-    card.addEventListener('mouseenter', () => video.play().catch(() => {}));
-    card.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+    const isOverlay = video.classList.contains('media-video');
+    card.addEventListener('mouseenter', () => {
+      if (isOverlay) video.classList.add('is-visible');
+      video.play().catch(() => {});
+    });
+    card.addEventListener('mouseleave', () => {
+      if (isOverlay) video.classList.remove('is-visible');
+      video.pause();
+      video.currentTime = 0;
+    });
   });
 }
