@@ -28,7 +28,7 @@
     "title": "My own website",
     "status": "in-progress",
     "date": "2026-08-23",
-    "color": "#d7df53",
+    "color": "#E3E15D",
     "textColor": "#000000",
     "categories": [
       "Website"
@@ -39,7 +39,9 @@
       "label": "Git it",
       "url": ""
     },
-    "badges": [],
+    "badges": [
+      "Mostly finished"
+    ],
     "description": [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     ],

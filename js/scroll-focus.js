@@ -1,28 +1,33 @@
-/* Page "In progress" : au scroll, la carte la plus proche du centre de l'écran
-   grandit (.in-focus) ; les autres reviennent à leur taille normale. */
+/* Page "In progress" : l'échelle de chaque carte dépend en continu de sa
+   distance au centre de l'écran (proportionnel au scroll) — pas de zone
+   binaire "dedans/dehors", ça grandit/rétrécit progressivement au fil du
+   scroll. La lenteur perçue vient de la transition CSS sur .project-card /
+   .phase-card, qui "rattrape" en douceur la valeur cible à chaque frame. */
 (function () {
+  const MIN_SCALE = 0.82;
+  const MAX_SCALE = 1.1;
+  // Distance (en px) au-delà de laquelle une carte est à son échelle minimale.
+  const FALLOFF = 0.9; // fraction de la hauteur de la fenêtre
+
   let ticking = false;
 
   function updateFocus() {
     ticking = false;
-    const cards = document.querySelectorAll('.inprogress-item');
-    if (!cards.length) return;
+    const items = document.querySelectorAll('.inprogress-item');
+    if (!items.length) return;
 
     const viewportCenter = window.innerHeight / 2;
-    let closest = null;
-    let closestDist = Infinity;
+    const maxDist = window.innerHeight * FALLOFF;
 
-    cards.forEach(card => {
-      const rect = card.getBoundingClientRect();
-      const cardCenter = rect.top + rect.height / 2;
-      const dist = Math.abs(cardCenter - viewportCenter);
-      if (dist < closestDist) {
-        closestDist = dist;
-        closest = card;
-      }
+    items.forEach(item => {
+      const rect = item.getBoundingClientRect();
+      const itemCenter = rect.top + rect.height / 2;
+      const dist = Math.min(Math.abs(itemCenter - viewportCenter), maxDist);
+      const t = 1 - dist / maxDist; // 1 = pile au centre, 0 = au bord de la zone
+      const scale = MIN_SCALE + (MAX_SCALE - MIN_SCALE) * t;
+      item.style.transform = `scale(${scale.toFixed(3)})`;
+      item.style.zIndex = t > 0.5 ? 4 : 1;
     });
-
-    cards.forEach(card => card.classList.toggle('in-focus', card === closest));
   }
 
   function onScroll() {
