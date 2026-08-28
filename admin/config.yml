@@ -92,3 +92,18 @@ collections:
                           - { label: "Active", value: "current" }
                           - { label: "À venir", value: "upcoming" }
                       - { name: "note", label: "Note (optionnel)", widget: "string", required: false }
+      - name: "tools"
+        label: "Outils (bannière 'Favorite tools' sur Work)"
+        file: "data/tools.json"
+        fields:
+          - name: "tools"
+            label: "Outils"
+            widget: "list"
+            summary: "{{name}}"
+            fields:
+              - { name: "name", label: "Nom de l'outil", widget: "string" }
+              - name: "icon"
+                label: "Icône (image)"
+                widget: "image"
+                media_folder: "/images/tools"
+                public_folder: "/images/tools"
