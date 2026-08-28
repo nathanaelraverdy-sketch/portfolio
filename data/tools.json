@@ -1,10 +1,32 @@
 {
   "tools": [
-    { "name": "Figma", "icon": "images/tools/figma.svg" },
-    { "name": "Xcode", "icon": "images/tools/xcode.svg" },
-    { "name": "Python", "icon": "images/tools/python.svg" },
-    { "name": "Swift", "icon": "images/tools/swift.svg" },
-    { "name": "HTML", "icon": "images/tools/html5.svg" },
-    { "name": "CSS", "icon": "images/tools/css3.svg" }
+    {
+      "name": "Figma",
+      "icon": "images/tools/figma.svg"
+    },
+    {
+      "name": "Xcode",
+      "icon": "images/tools/xcode.svg"
+    },
+    {
+      "name": "Python",
+      "icon": "images/tools/python.svg"
+    },
+    {
+      "name": "Swift",
+      "icon": "images/tools/swift.svg"
+    },
+    {
+      "name": "HTML",
+      "icon": "images/tools/html5.svg"
+    },
+    {
+      "name": "CSS",
+      "icon": "images/tools/css3.svg"
+    },
+    {
+      "name": "C#",
+      "icon": "images/tools/csharp.svg"
+    }
   ]
 }
