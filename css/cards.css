@@ -103,7 +103,7 @@ body[class*="page-"] a { color: inherit; text-decoration: none; }
   box-shadow:
     0 0 34px 4px color-mix(in srgb, var(--card-color) 30%, transparent),  /* drop shadow externe, tout autour de la carte */
     inset 10px 10px 22.5px rgba(255, 255, 255, 0.22),  /* neomorphisme — clair */
-    inset -10px -10px 27px rgba(0, 0, 0, 0.22);      /* neomorphisme — sombre */
+    inset -10px -10px 27px rgba(0, 0, 0, 0.13);      /* neomorphisme — sombre */
 }
 
 .project-card .card-text {
@@ -232,7 +232,7 @@ body[class*="page-"] a { color: inherit; text-decoration: none; }
   box-shadow:
     0 0 34px 4px color-mix(in srgb, var(--card-color) 30%, transparent),
     inset 10px 10px 22.5px rgba(255, 255, 255, 0.22),
-    inset -10px -10px 27px rgba(0, 0, 0, 0.32);
+    inset -10px -10px 27px rgba(0, 0, 0, 0.19);
 }
 .phase-card h4 {
   margin: 0 0 10px;
