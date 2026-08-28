@@ -340,45 +340,53 @@ body[class*="page-"] a { color: inherit; text-decoration: none; }
   margin-bottom: 0; /* l'espacement est géré par le gap + margin de .inprogress-item */
 }
 
-/* ---- bannière "Mes outils" (page Work) : icônes qui suivent la souris ---- */
+/* ---- bannière "Mes outils" (page Work) : icônes-tuiles (format iOS) avec
+   physique individuelle au survol de la souris (voir js/tools-banner.js) ---- */
 .tools-banner {
-  background: #fff;
-  border-radius: var(--radius-card);
-  padding: 30px 36px;
-  margin-bottom: 34px;
+  margin-bottom: 40px;
 }
 
 .tools-banner-label {
-  margin: 0 0 20px;
+  margin: 0 0 18px;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #9a9a9a;
+  color: #8a8a8a;
 }
 
 .tools-banner-icons {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: 28px;
+  gap: 26px;
 }
 
 .tool-icon {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  color: var(--tool-color, #111);
+  gap: 9px;
   cursor: default;
-  transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0) rotate(var(--rot, 0deg));
+  transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0) rotate(var(--rot, 0deg)) scale(var(--scale, 1));
   will-change: transform;
 }
 
-.tool-icon svg {
-  width: 42px;
-  height: 42px;
+.tool-icon-tile {
+  width: 62px;
+  height: 62px;
+  border-radius: 22%;
+  background: var(--tool-color, #111);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 22px -6px color-mix(in srgb, var(--tool-color, #111) 55%, transparent);
+}
+
+.tool-icon-tile svg {
+  width: 32px;
+  height: 32px;
+  color: #fff;
   display: block;
 }
 
