@@ -1,29 +1,26 @@
-/* Bannière "Mes outils" (page Work) : les icônes sont disposées en éventail
-   (pile de tuiles qui se chevauchent) et restent parfaitement statiques tant
-   que le curseur n'est pas réellement passé dessus. Quand le curseur
-   s'approche d'une icône, celle-ci se redresse, se soulève légèrement et
-   ressort de la pile — chaque icône réagit indépendamment, selon sa propre
-   distance au curseur. */
+/* Bannière d'outils (page Work) : icônes en éventail, parfaitement
+   statiques tant que le curseur n'est pas réellement passé dessus. Quand le
+   curseur s'approche d'une icône, elle se redresse, se soulève et grossit —
+   mais reste à sa place dans l'empilement (elle ne passe jamais devant ses
+   voisines). Chaque icône réagit indépendamment, selon sa propre distance
+   au curseur. */
 (function () {
   const icons = Array.from(document.querySelectorAll('.tool-icon'));
   if (!icons.length) return;
 
-  const RADIUS = 130;   // px — distance à partir de laquelle une icône réagit
-  const MAX_PULL = 14;  // px — déplacement max vers le curseur
-  const LIFT = 16;      // px — soulèvement max quand l'icône "sort" de la pile
-  const EASE = 0.15;
-  const ROT_EASE = 0.18;
+  const RADIUS = 190;   // px — distance à partir de laquelle une icône réagit
+  const MAX_PULL = 26;  // px — déplacement max vers le curseur
+  const LIFT = 30;       // px — soulèvement max au survol
+  const EASE = 0.16;
+  const ROT_EASE = 0.2;
 
   const state = icons.map(el => {
     const restRot = parseFloat(getComputedStyle(el).getPropertyValue('--rest-rot')) || 0;
-    const baseZ = getComputedStyle(el).getPropertyValue('--z') || 1;
     return {
       el,
       restRot,
-      baseZ,
       x: 0, y: 0, rotDelta: 0, scale: 1,
-      targetX: 0, targetY: 0, targetRotDelta: 0, targetScale: 1,
-      active: false
+      targetX: 0, targetY: 0, targetRotDelta: 0, targetScale: 1
     };
   });
 
@@ -52,15 +49,13 @@
           const norm = dist || 1;
           s.targetX = (dx / norm) * pull * MAX_PULL;
           s.targetY = (dy / norm) * pull * MAX_PULL - pull * LIFT;
-          s.targetScale = 1 + pull * 0.15;
+          s.targetScale = 1 + pull * 0.26;
           s.targetRotDelta = -s.restRot * pull; // se redresse en sortant de la pile
-          if (!s.active) { s.active = true; s.el.style.zIndex = 20; }
         } else {
           s.targetX = 0;
           s.targetY = 0;
           s.targetScale = 1;
           s.targetRotDelta = 0;
-          if (s.active) { s.active = false; s.el.style.zIndex = s.baseZ; }
         }
 
         s.x += (s.targetX - s.x) * EASE;
