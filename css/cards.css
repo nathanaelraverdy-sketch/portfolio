@@ -339,3 +339,59 @@ body[class*="page-"] a { color: inherit; text-decoration: none; }
 .inprogress-item .phase-card {
   margin-bottom: 0; /* l'espacement est géré par le gap + margin de .inprogress-item */
 }
+
+/* ---- bannière "Mes outils" (page Work) : icônes qui suivent la souris ---- */
+.tools-banner {
+  background: #fff;
+  border-radius: var(--radius-card);
+  padding: 30px 36px;
+  margin-bottom: 34px;
+}
+
+.tools-banner-label {
+  margin: 0 0 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9a9a9a;
+}
+
+.tools-banner-icons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.tool-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--tool-color, #111);
+  cursor: default;
+  transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0) rotate(var(--rot, 0deg));
+  will-change: transform;
+}
+
+.tool-icon svg {
+  width: 42px;
+  height: 42px;
+  display: block;
+}
+
+.tool-icon span {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--ink);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.tool-icon:hover span { opacity: 1; }
+
+@media (max-width: 640px) {
+  .tools-banner-icons { justify-content: center; }
+}
