@@ -1,53 +1,67 @@
 {
   "projects": [
     {
-      "id": "myrtille-sage-femme",
-      "title": "Myrtille Raverdy Sage-femme",
-      "status": "finished",
-      "date": "2026-08-24",
       "color": "#a692db",
+      "contentHtml": "",
+      "date": "2026-08-24",
+      "badges": [],
+      "cta": {
+        "label": "Prout it ",
+        "url": ""
+      },
+      "status": "in-progress",
       "textColor": "#ffffff",
+      "version": "",
+      "title": "Myrtille Raverdy Sage-femme",
+      "video": "images/myrtille-sage-femme-video.mp4",
+      "id": "myrtille-sage-femme",
+      "image": "",
+      "phase": {
+        "title": "Titre",
+        "explanation": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "explanationTitle": "explication",
+        "newsTitle": "news ",
+        "news": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "steps": [
+          {
+            "label": "Design",
+            "status": "current"
+          },
+          {
+            "label": "Developpment ",
+            "status": "upcoming"
+          },
+          {
+            "label": "Beta testing ",
+            "status": "upcoming"
+          }
+        ]
+      },
       "categories": [
         "Website"
       ],
-      "image": "",
-      "video": "images/myrtille-sage-femme-video.mp4",
-      "version": "",
-      "cta": {
-        "label": "Web it",
-        "url": ""
-      },
-      "badges": [],
       "description": [
         "Accompagnement bienveillant à Lausanne, de la grossesse au post-partum.",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      ],
-      "contentHtml": "",
-      "phase": null
+      ]
     },
     {
-      "id": "nathanael-website",
-      "title": "My own website",
-      "status": "in-progress",
-      "date": "2026-08-23",
       "color": "#E3E15D",
-      "textColor": "#000000",
-      "categories": [
-        "Website"
+      "contentHtml": "",
+      "date": "2026-08-23",
+      "badges": [
+        "Mostly finished"
       ],
-      "image": "",
-      "version": "",
       "cta": {
         "label": "Git it",
         "url": ""
       },
-      "badges": [
-        "Mostly finished"
-      ],
-      "description": [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      ],
-      "contentHtml": "",
+      "status": "in-progress",
+      "textColor": "#000000",
+      "version": "",
+      "title": "My own website",
+      "id": "nathanael-website",
+      "image": "",
       "phase": {
         "title": "Developpement phases",
         "explanationTitle": "Explanations",
@@ -70,33 +84,31 @@
             "status": "upcoming"
           }
         ]
-      }
-    },
-    {
-      "id": "shakeshack",
-      "title": "SHAKESHACK",
-      "status": "in-progress",
-      "date": "2026-08-01",
-      "color": "#a888e0",
-      "textColor": "#ffffff",
+      },
       "categories": [
         "Website"
       ],
-      "image": "images/shakeshack-image.png",
-      "version": "",
+      "description": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      ]
+    },
+    {
+      "color": "#a888e0",
+      "contentHtml": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "date": "2026-08-01",
+      "badges": [
+        "Version 0.9.8"
+      ],
       "cta": {
         "label": "",
         "url": ""
       },
-      "badges": [
-        "Version 0.9.8"
-      ],
-      "description": [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing",
-        "elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-      ],
-      "contentHtml": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "status": "in-progress",
+      "textColor": "#ffffff",
+      "version": "",
+      "title": "SHAKESHACK",
+      "id": "shakeshack",
+      "image": "images/shakeshack-image.png",
       "phase": {
         "title": "Developpement phases",
         "explanationTitle": "Explanations",
@@ -118,7 +130,15 @@
             "status": "upcoming"
           }
         ]
-      }
+      },
+      "categories": [
+        "Website"
+      ],
+      "description": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing",
+        "elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+      ]
     }
   ]
 }
