@@ -340,14 +340,16 @@ body[class*="page-"] a { color: inherit; text-decoration: none; }
   margin-bottom: 0; /* l'espacement est géré par le gap + margin de .inprogress-item */
 }
 
-/* ---- bannière "Mes outils" (page Work) : icônes-tuiles (format iOS) avec
-   physique individuelle au survol de la souris (voir js/tools-banner.js) ---- */
+/* ---- bannière "Mes outils" (page Work) : icônes-tuiles en éventail
+   (façon pile de cartes qui se chevauchent), statiques au repos — elles ne
+   réagissent que quand le curseur passe réellement dessus (voir
+   js/tools-banner.js). ---- */
 .tools-banner {
-  margin-bottom: 40px;
+  margin-bottom: 44px;
 }
 
 .tools-banner-label {
-  margin: 0 0 18px;
+  margin: 0 0 22px;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -357,35 +359,41 @@ body[class*="page-"] a { color: inherit; text-decoration: none; }
 
 .tools-banner-icons {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 26px;
+  align-items: flex-end;
+  padding-left: 6px;
 }
 
 .tool-icon {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 9px;
+  margin-left: -22px;
+  z-index: var(--z, 1);
   cursor: default;
-  transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0) rotate(var(--rot, 0deg)) scale(var(--scale, 1));
+  transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0) rotate(calc(var(--rest-rot, 0deg) + var(--rot, 0deg))) scale(var(--scale, 1));
+  transform-origin: center 85%;
   will-change: transform;
 }
 
+.tool-icon:first-child { margin-left: 0; }
+
 .tool-icon-tile {
-  width: 62px;
-  height: 62px;
+  width: 64px;
+  height: 64px;
   border-radius: 22%;
   background: var(--tool-color, #111);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 22px -6px color-mix(in srgb, var(--tool-color, #111) 55%, transparent);
+  box-shadow: 0 12px 24px -8px color-mix(in srgb, var(--tool-color, #111) 60%, transparent),
+              0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 .tool-icon-tile svg {
-  width: 32px;
-  height: 32px;
+  width: 33px;
+  height: 33px;
   color: #fff;
   display: block;
 }
@@ -401,5 +409,7 @@ body[class*="page-"] a { color: inherit; text-decoration: none; }
 .tool-icon:hover span { opacity: 1; }
 
 @media (max-width: 640px) {
-  .tools-banner-icons { justify-content: center; }
+  .tools-banner-icons { flex-wrap: wrap; padding-left: 0; }
+  .tool-icon { margin-left: -14px; }
+  .tool-icon:first-child { margin-left: 0; }
 }
